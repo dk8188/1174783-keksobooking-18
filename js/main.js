@@ -22,20 +22,20 @@ var getArrayOfPins = function () {
 var pins = [];
 for (var i = 0; i < ADS_QUANTITY; i ++ ) {
 var pin = {
-    'author': {
-      'avatar': 'img/avatars/user02.png'
+    author: {
+      avatar: 'img/avatars/user02.png'
     },
-    'offer': {
-      'title': arrayRandElement(OFFER_TITLE),
-      'price': arrayRandElement(OFFER_PRICE),
-      'type': arrayRandElement(OFFER_TYPE),
-      'checkin': arrayRandElement(OFFER_CHECKIN),
-      'checkout': arrayRandElement(OFFER_CHECKOUT),
-      'facilities': arrayRandElement(OFFER_FACILITIES),
-      'description': arrayRandElement(OFFER_DESCRIPTION),
-      'photos': arrayRandElement(OFFER_PHOTOS)-b 
+      offer: {
+      title: arrayRandElement(OFFER_TITLE),
+      price: arrayRandElement(OFFER_PRICE),
+      type: arrayRandElement(OFFER_TYPE),
+      checkin: arrayRandElement(OFFER_CHECKIN),
+      checkout: arrayRandElement(OFFER_CHECKOUT),
+      facilities: arrayRandElement(OFFER_FACILITIES),
+      description: arrayRandElement(OFFER_DESCRIPTION),
+      photos: arrayRandElement(OFFER_PHOTOS)
     },
-    'location': {
+    location: {
       x: arrayRandElement(LOCATION_X),
       y: arrayRandElement(LOCATION_Y)
     }
