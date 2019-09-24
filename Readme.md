@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Дарья Квочко](https://up.htmlacademy.ru/javascript/18/user/1174783).
-* Наставник: `Попов Антон`.
+* Наставник: 'Попов Антон'.
 
 ---
 
