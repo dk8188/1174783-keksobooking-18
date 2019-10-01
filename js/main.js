@@ -59,7 +59,7 @@ var crateSimilarAdd = function () {
     'offer': {
       'title': getRandomElement(OFFER_TITLES),
       'type': getRandomElement(APARTAMENT_TYPE),
-      'adress': positionX + ',' + positionY,
+      'address': positionX + ',' + positionY,
       'price': getRandomNumber(1000, 50000),
       'guests': getRandomNumber(1, 6),
       'checkin': getRandomElement(CHECKIN_TIME),
@@ -84,6 +84,7 @@ var generateAds = function (count) {
 };
 var ads = generateAds(8);
 
+
 var generatePin = function (element) {
   var clonePin = pin.cloneNode(true);
   var pinImg = clonePin.querySelector('img');
@@ -102,4 +103,17 @@ var createAdsFromArray = function (dataArray) {
 
 var placeAdsOnTheMap = createAdsFromArray(ads);
 mapPins.prepend(placeAdsOnTheMap);
+
+var generateCard = function() {
+  var ad1 = ads[0];
+  var card = document.querySelector('#card').content;
+  var cardTitle = card.querySelector('.popup__title');
+  var cardAddress = card.querySelector('.popup__text--address');
+  cardTitle.textContent = ad1.offer.title;
+  cardAddress.textContent = ad1.offer.address;
+  console.log(card);
+  var mapPoint = map.querySelector('.map__filters-container');
+  map.insertBefore(card, mapPoint);
+};
+generateCard();
 
