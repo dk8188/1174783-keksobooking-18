@@ -1,9 +1,6 @@
 
 'use strict';
-var AVATAR_PHOTOS = ['img/avatars/user0.png', 'img/avatars/user2.png', 'img/avatars/user3.png', 
-  'img/avatars/user4.png', 'img/avatars/user5.png', 'img/avatars/user6.png', 
-  'img/avatars/user7.png', 'img/avatars/user8.png'
-];
+var AVATAR_PHOTOS = ['01', '02', '03', '04', '05', '06', '07', '08'];
 
 var OFFER_TITLES = ['сдам квартиру', 'уютная квартира', 'просторный пентхаус',
   'только славянам', 'квартира в доме с паркингом', 'квартира в самом центре',
@@ -23,11 +20,16 @@ var APARTAMENT_PHOTO = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
 var ENTER_KEYCODE = 13;
 
 // получение DOM элементов
+
+document.addEventListener('mousedown', function () {
+  var mapActivate = document.querySelector('.map');
+  mapActivate.classList.remove('map--faded');
+});
+
 var map = document.querySelector('.map');
 var mapPins = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content;
 var pin = pinTemplate.querySelector('.map__pin');
-map.classList.remove('map--faded');
 // функция получения рандомного элемента из массива
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -59,7 +61,7 @@ var crateSimilarAdd = function () {
   var positionY = getRandomNumber(160, 530);
   var ad = {
     'author': {
-      'avatar': getRandomElement(AVATAR_PHOTOS)
+      'avatar': 'img/avatars/user' + getRandomElement(AVATAR_PHOTOS) + '.png'
     },
     'offer': {
       'title': getRandomElement(OFFER_TITLES),
@@ -96,6 +98,7 @@ var generatePin = function (element) {
   var pinImg = clonePin.querySelector('img');
   clonePin.style.left = element.location.x + 50 + 'px';
   clonePin.style.top = element.location.y + 75 + 'px';
+  pinImg.image = element.author.avatar;
   pinImg.alt = element.author.title;
   return clonePin;
 };
