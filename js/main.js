@@ -1,12 +1,15 @@
 
 'use strict';
-var AVATAR_PHOTOS = ['01', '02', '03', '04', '05', '06', '07', '08'];
+var AVATAR_PHOTOS = ['img/avatars/user0.png', 'img/avatars/user2.png', 'img/avatars/user3.png', 
+  'img/avatars/user4.png', 'img/avatars/user5.png', 'img/avatars/user6.png', 
+  'img/avatars/user7.png', 'img/avatars/user8.png'
+];
 
 var OFFER_TITLES = ['сдам квартиру', 'уютная квартира', 'просторный пентхаус',
   'только славянам', 'квартира в доме с паркингом', 'квартира в самом центре',
-  'квартира в самом центре центра', 'квартира с мансардой'];
+  'квартира в самом центре города', 'квартира с мансардой'];
 
-var APARTAMENT_TYPE = ['palace', 'flat', 'house', 'bungalo'];
+var APARTAMENT_TYPE = ['пентаус', 'квартира', 'дом', 'бунгало', 'апартаменты', 'общежитие'];
 var CHECKIN_TIME = ['12:00', '13:00', '14:00'];
 var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
 
@@ -16,6 +19,8 @@ var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var APARTAMENT_PHOTO = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+
+var ENTER_KEYCODE = 13;
 
 // получение DOM элементов
 var map = document.querySelector('.map');
@@ -54,7 +59,7 @@ var crateSimilarAdd = function () {
   var positionY = getRandomNumber(160, 530);
   var ad = {
     'author': {
-      'avatar': 'img/avatars/user' + getRandomElement(AVATAR_PHOTOS) + '.png'
+      'avatar': getRandomElement(AVATAR_PHOTOS)
     },
     'offer': {
       'title': getRandomElement(OFFER_TITLES),
@@ -62,6 +67,7 @@ var crateSimilarAdd = function () {
       'address': positionX + ',' + positionY,
       'price': getRandomNumber(1000, 50000),
       'guests': getRandomNumber(1, 6),
+      'rooms': getRandomNumber(1, 6),
       'checkin': getRandomElement(CHECKIN_TIME),
       'checkout': getRandomElement(CHECKOUT_TIME),
       'featurs': generateRandomArray(FEATURES),
@@ -104,14 +110,21 @@ var createAdsFromArray = function (dataArray) {
 var placeAdsOnTheMap = createAdsFromArray(ads);
 mapPins.prepend(placeAdsOnTheMap);
 
-var generateCard = function() {
+var generateCard = function () {
   var ad1 = ads[0];
   var card = document.querySelector('#card').content;
+  var cardAvatar;
   var cardTitle = card.querySelector('.popup__title');
   var cardAddress = card.querySelector('.popup__text--address');
+  var cardPrice = card.querySelector('.popup__text--price');
+  var cardType = card.querySelector('.popup__type');
+  var cardCapacity = card.querySelector('.popup__text--capacity');
+
   cardTitle.textContent = ad1.offer.title;
   cardAddress.textContent = ad1.offer.address;
-  console.log(card);
+  cardPrice.textContent = ad1.offer.price + ' RUB';
+  cardType.textContent = ad1.offer.type;
+  cardCapacity.textContent = ad1.offer.rooms + ' комнат для ' + ad1.offer.guests + ' гостей';
   var mapPoint = map.querySelector('.map__filters-container');
   map.insertBefore(card, mapPoint);
 };
