@@ -47,7 +47,7 @@ var shift = {
 };
 startCoords = {
   x:moveEvt.clientX,
-  y:
+  y:moveEvt.clientY
 };
 }
 /**
