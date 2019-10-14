@@ -1,5 +1,4 @@
 'use strict';
-
 var OFFER_TITLES = [
   'сдам квартиру',
   'уютная квартира',
@@ -23,4 +22,4 @@ var APARTAMENT_PHOTO = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 
-// получение 
+// получение
