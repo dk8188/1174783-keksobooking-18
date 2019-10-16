@@ -6,9 +6,10 @@ var pinTemplate = document.querySelector('#pin').content;
 var pin = pinTemplate.querySelector('.map__pin');
 var mainPin = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
-window.pin;
+window.pin = pin;
 window.pin.generatePin;
 window.placeAdsOnTheMap;
+window.mainPin = mainPin;
 
 mainPin.addEventListener('mousedown', function () {
   map.classList.remove('map--faded'); // re-write
@@ -91,4 +92,3 @@ var generateMockAds = function (count) {
 window.createMockAd = createMockAd;
 var ads = generateMockAds(8); // const
 window.ads = ads;
-
