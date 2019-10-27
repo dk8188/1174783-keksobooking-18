@@ -1,5 +1,6 @@
-'use strict';
 
+'use strict';
+// data.js
 var OFFER_TITLES = [
   'сдам квартиру',
   'уютная квартира',
@@ -22,7 +23,104 @@ var APARTAMENT_PHOTO = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
+// dom.js
+// получение DOM элементов
+var map = document.querySelector('.map');
+var mapPins = document.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin').content;
+var pin = pinTemplate.querySelector('.map__pin');
+var mainPin = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
 
+mainPin.addEventListener('mousedown', function () {
+  map.classList.remove('map--faded'); // re-write
+  form.classList.remove('ad-form--disabled');
+  mapPins.prepend(placeAdsOnTheMap);
+  mockCard();
+});
+var onMouseMove = function (moveEvt) {
+  moveEvt.preventDefault();
+  dragged = true;
+  var shift = {
+    x: startCoords.x - moveEvt.clientX,
+    y: startCoords.y - moveEvt.clientY
+  };
+  startCoords = {
+    x: moveEvt.clientX,
+    y: moveEvt.clientY
+  };
+};
+
+// util.js
+/**
+ * функция получения рандомного элемента из массива
+ * @param {Array} arr - изначальный массив
+ * @return {*} - рандомный элемент массива
+ */
+var generateRandomElement = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+/**
+ * gets max  and min numbers
+ * @param {number} max -  max number.
+ * @param {number} min -  min number.
+ * @return {number} - random number between max and min.
+ */
+var generateRandomNumber = function (max, min) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+/**
+ * gets max  and min numbers
+ * @param {array} randomArr -  random array
+ * @param {number} generateRandomNumber -  min number from 1 to the last length in array.
+ * @return {*} - copyArr - use slice to copy random array
+ */
+// функция генерации массива длинной не более значения count
+var generateRandomArray = function (arr) {
+  var randomArr = [];
+  var count = generateRandomNumber(1, arr.length);
+  var copyArr = arr.slice();
+  for (var i = 0; i < count; i++) {
+    var randomElement = generateRandomElement(copyArr); // random element from array
+    copyArr = copyArr.filter(function (item) {
+      return randomElement !== item;
+    });
+    randomArr.push(randomElement);
+  }
+  return randomArr;
+};
+
+// data.js
+/**
+ * generate random mock ad
+ * @return {object} - returns object with parameters
+ */
+// mock data
+var createMockAd = function () {
+  var positionX = generateRandomNumber(25, map.clientHeight - 50); // 25, -25 is used in a way so that pin doest cross the broder
+  var positionY = generateRandomNumber(160, 530);
+  return {
+    'author': {
+      'avatar': 'img/avatars/user0' + generateRandomNumber(1, 8) + '.png'
+    },
+    'offer': {
+      'title': generateRandomElement(OFFER_TITLES),
+      'type': generateRandomElement(APARTAMENT_TYPE),
+      'address': positionX + ', ' + positionY,
+      'price': generateRandomNumber(1000, 50000),
+      'guests': generateRandomNumber(1, 6),
+      'rooms': generateRandomNumber(1, 6),
+      'checkin': generateRandomElement(CHECKIN_TIME),
+      'checkout': generateRandomElement(CHECKOUT_TIME),
+      'featurs': generateRandomArray(FEATURES),
+      'photos': generateRandomArray(APARTAMENT_PHOTO),
+    },
+    'location': {
+      'x': positionX,
+      'y': positionY
+    }
+  };
+};
 /**
  * generates random ads (mock) number of ads = count
  * @param {number} count
@@ -63,36 +161,7 @@ var pinsData = function (dataArray) { // TODO rename to pinsData
   }
   return fragment;
 };
-/**
-* generate random mock ad
-* @return {object} - returns object with parameters
-*/
-// mock data
-var createMockAd = function () {
-  var positionX = generateRandomNumber(25, map.clientHeight - 50); // 25, -25 is used in a way so that pin doest cross the broder
-  var positionY = generateRandomNumber(160, 530);
-  return {
-    'author': {
-      'avatar': 'img/avatars/user0' + generateRandomNumber(1, 8) + '.png'
-    },
-    'offer': {
-      'title': generateRandomElement(OFFER_TITLES),
-      'type': generateRandomElement(APARTAMENT_TYPE),
-      'address': positionX + ', ' + positionY,
-      'price': generateRandomNumber(1000, 50000),
-      'guests': generateRandomNumber(1, 6),
-      'rooms': generateRandomNumber(1, 6),
-      'checkin': generateRandomElement(CHECKIN_TIME),
-      'checkout': generateRandomElement(CHECKOUT_TIME),
-      'featurs': generateRandomArray(FEATURES),
-      'photos': generateRandomArray(APARTAMENT_PHOTO),
-    },
-    'location': {
-      'x': positionX,
-      'y': positionY
-    }
-  };
-};
+
 var placeAdsOnTheMap = pinsData(ads);
 /**
    * функция создающая mock card
@@ -122,10 +191,3 @@ var mockCard = function () {
   var mapPoint = map.querySelector('.map__filters-container');
   map.insertBefore(card, mapPoint);
 };
-
-window.generateAds = generateAds;
-window.generatePin = generatePin;
-window.createMockAd = createMockAd;
-window.pinsData = pinsData;
-window.mockCard = mockCard; // data.js?
-window.ads = ads;
