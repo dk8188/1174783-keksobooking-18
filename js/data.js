@@ -22,19 +22,6 @@ var APARTAMENT_PHOTO = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-
-/**
- * generates random ads (mock) number of ads = count
- * @param {number} count
- * @return {array} - ads
- */
-var generateAds = function (count) {
-  var ads = [];
-  for (var i = 0; i < count; i++) {
-    ads.push(createMockAd());
-  }
-  return ads;
-};
 var ads = generateAds(8); // const
 /**
    * функция создающая html pin
@@ -98,18 +85,31 @@ var placeAdsOnTheMap = pinsData(ads);
    * функция создающая mock card
    * @param {object} ad1 - random ad from mock ads
    */
+/**
+ * generates random ads (mock) number of ads = count
+ * @param {number} count
+ * @return {array} - ads
+ */
+var generateAds = function (count) {
+  var ads = [];
+  for (var i = 0; i < count; i++) {
+    ads.push(createMockAd());
+  }
+  return ads;
+};
 
 var mockCard = function () {
   var ad1 = ads[1];
-  var card = document.querySelector('#card').content; // clone
-  var cardAvatar = card.querySelector('.popup__avatar');
-  var cardTitle = card.querySelector('.popup__title');
-  var cardAddress = card.querySelector('.popup__text--address');
-  var cardPrice = card.querySelector('.popup__text--price');
-  var cardType = card.querySelector('.popup__type');
-  var cardCapacity = card.querySelector('.popup__text--capacity');
+  var card = document.querySelector('#card').content;
+  var newCard = card.cloneNode(true); // clone
+  var cardAvatar = newCard.querySelector('.popup__avatar');
+  var cardTitle = newCard.querySelector('.popup__title');
+  var cardAddress = newCard.querySelector('.popup__text--address');
+  var cardPrice = newCard.querySelector('.popup__text--price');
+  var cardType = newCard.querySelector('.popup__type');
+  var cardCapacity = newCard.querySelector('.popup__text--capacity');
 
-  cardAvatar.content = ad1.offer.avatar;
+  cardAvatar.content = ad1.author.avatar;
   cardTitle.textContent = ad1.offer.title;
   cardAddress.textContent = ad1.offer.address;
   cardPrice.textContent = ad1.offer.price + ' RUB';
@@ -124,6 +124,7 @@ var mockCard = function () {
 };
 
 window.generateAds = generateAds;
+window.createMockAd = createMockAd;
 window.generatePin = generatePin;
 window.createMockAd = createMockAd;
 window.pinsData = pinsData;

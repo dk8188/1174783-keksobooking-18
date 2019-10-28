@@ -169,7 +169,7 @@ var placeAdsOnTheMap = pinsData(ads);
    */
 
 var mockCard = function () {
-  var ad1 = ads[1];
+  var adRandom = ads[1];
   var card = document.querySelector('#card').content; // clone
   var cardAvatar = card.querySelector('.popup__avatar');
   var cardTitle = card.querySelector('.popup__title');
@@ -178,12 +178,12 @@ var mockCard = function () {
   var cardType = card.querySelector('.popup__type');
   var cardCapacity = card.querySelector('.popup__text--capacity');
 
-  cardAvatar.content = ad1.offer.avatar;
-  cardTitle.textContent = ad1.offer.title;
-  cardAddress.textContent = ad1.offer.address;
-  cardPrice.textContent = ad1.offer.price + ' RUB';
-  cardType.textContent = ad1.offer.type;
-  cardCapacity.textContent = ad1.offer.rooms + ' комнат для ' + ad1.offer.guests + ' гостей';
+  cardAvatar.src = adRandom.author.avatar;
+  cardTitle.textContent = adRandom.offer.title;
+  cardAddress.textContent = adRandom.offer.address;
+  cardPrice.textContent = adRandom.offer.price + ' RUB';
+  cardType.textContent = adRandom.offer.type;
+  cardCapacity.textContent = adRandom.offer.rooms + ' комнат для ' + ad1.offer.guests + ' гостей';
   /**
    * функция вставляющая mock card
    * @param {object} mapPoint - html node

@@ -33,19 +33,25 @@ var generateRandomNumber = function (max, min) {
  * @param {number} generateRandomNumber -  min number from 1 to the last length in array.
  * @return {*} - copyArr - use slice to copy random array
  */
-  // функция генерации массива длинной не более значения count
-  var generateRandomArray = function (arr) {
-    var randomArr = [];
-    var count = generateRandomNumber(1, arr.length);
-    var copyArr = arr.slice();
-    for (var i = 0; i < count; i++) {
-      var randomElement = generateRandomElement(copyArr); // random element from array
-      copyArr = copyArr.filter(function (item) {
-        return randomElement !== item;
-      });
-      randomArr.push(randomElement);
-    }
-    return randomArr;
-  };
-  window.generateRandomArray = generateRandomArray;
+// функция генерации массива длинной не более значения count
+var generateRandomArray = function (arr) {
+  var randomArr = [];
+  var count = generateRandomNumber(1, arr.length);
+  var copyArr = arr.slice();
+  for (var i = 0; i < count; i++) {
+    var randomElement = generateRandomElement(copyArr); // random element from array
+    copyArr = copyArr.filter(function (item) {
+      return randomElement !== item;
+    });
+    randomArr.push(randomElement);
+  }
+  return randomArr;
+};
+window.generateRandomArray = generateRandomArray;
 
+mainPin.addEventListener('mousedown', function () {
+  map.classList.remove('map--faded'); // re-write
+  form.classList.remove('ad-form--disabled');
+  mapPins.prepend(placeAdsOnTheMap);
+  mockCard();
+});
